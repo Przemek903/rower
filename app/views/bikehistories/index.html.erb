@@ -1,0 +1,24 @@
+<table class="table table-condensed">
+	<tr>
+  		<td>Numer stacji</td>
+  		<td>Szerokość geograficzna</td>
+  		<td>Długość geograficzna</td>
+  		<td>Adres stacji</td>
+  		<td>Liczba rowerów</td>
+  		<td>Liczba stojaków</td>
+  		<td>Numery rowerów na stacji</td>
+  		<td>Data dodania</td>
+  	</tr> 
+  <% @bikehistories.last(1000).each do |bikehistory| %>
+  	<tr>
+  		<td><%= bikehistory.stationId %></td>
+  		<td><%= bikehistory.lat %></td>
+  		<td><%= bikehistory.lng %></td>
+  		<td><%= bikehistory.name %></td>
+  		<td><%= bikehistory.bikes %></td>
+  		<td><%= bikehistory.bike_racks %></td>
+  		<td><%= bikehistory.bike_numbers %></td>
+  		<td><%= bikehistory.created_at %></td>
+  	</tr>
+  <% end %>
+</table>
