@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd ${OPENSHIFT_REPO_DIR} rake RAILS_ENV=production crawl_data
+cd ${OPENSHIFT_REPO_DIR} bundle exec rake crawl_data RAILS_ENV=production
