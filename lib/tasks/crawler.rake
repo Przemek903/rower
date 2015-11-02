@@ -10,7 +10,7 @@ task :crawl_data => :environment do
 	warsaw.each do |station|
 		Bikehistory.create(
 			stationId: 		station["uid"].to_i, 		# Station ID
-			lat: 			station["lat"].to_f, 		# Latitude
+			laf: 			station["lat"].to_f, 		# Latitude
 			lng:  			station["lng"].to_f,		# Longitude	
 			name: 			station["name"],			# Station name
 			bikes: 			station["bikes"],			# Number of bikes

@@ -18,7 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-set :environment, "production"
+set :environment, "development"
 
 set :output, "#{path}/log/cron.log"
 
