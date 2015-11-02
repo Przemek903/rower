@@ -1,3 +1,6 @@
 #!/bin/bash
 
-cd ${OPENSHIFT_REPO_DIR} && bundle exec rake crawl_data RAILS_ENV=production
+minute=$(date +%M)
+if [ $(($minute % 15)) -eq 0 ]; then
+	cd ${OPENSHIFT_REPO_DIR} && bundle exec rake crawl_data RAILS_ENV=production
+fi
