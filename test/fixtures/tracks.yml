@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fromStation: 1
+  toStation: 1
+  count: 1
+
+two:
+  fromStation: 1
+  toStation: 1
+  count: 1

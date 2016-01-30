@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'nokogiri', '1.6.4 '
 
+gem "twitter-bootstrap-rails"
+
 # Whenever
 gem 'whenever', :require => false
 
