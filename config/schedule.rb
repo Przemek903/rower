@@ -18,10 +18,10 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-set :environment, "production"
+# set :environment, "development"
 
-set :output, "#{path}/log/cron.log"
+# set :output, "#{path}/log/cron.log"
 
-every 15.minutes do
-	rake "crawl_data"
-end
+# every 15.minutes do
+# 	rake "crawl_data"
+# end

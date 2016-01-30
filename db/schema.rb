@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151029150055) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "bikehistories", force: true do |t|
     t.integer  "stationId"
     t.float    "laf"
