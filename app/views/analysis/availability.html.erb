@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-8">
+		<h3>Analiza dostępności rowerów</h3>
+		<%= form_tag :action => :availability , :remote=>true do %>
+		  	<%= radio_button_tag(:period, "hour") %>
+			<%= label_tag(:hour, "Godzinowa") %>
+			<%= radio_button_tag(:period, "day") %>
+			<%= label_tag(:day, "Dzienna") %>
+			<%= radio_button_tag(:period, "month") %>
+			<%= label_tag(:all, "Całość") %>
+			<div class="field">
+				<%= label_tag(:stationName, "Nazwa stacji")  %>
+				<%= text_field_tag(:stationName, "", data: {autocomplete_source: Station.order(:name).map(&:name)}) %>
+			</div>
+			<%= submit_tag("Analizuj") %>
+		<% end %>
+		<div id="lineChart">
+			<%= render 'analysis/availabilityChart' %>
+		</div>
+	</div>
+	<div class="col-md-1"></div>
+
+</div>
+
+

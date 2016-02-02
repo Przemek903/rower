@@ -1,0 +1,8 @@
+
+<p><b>Nazwa stacji: </b> <%= station.name %></p>
+
+<p><b>Numer stacji: </b><%= station.stationNumber %></p>
+
+<p><b>Liczba dostępnych rowerów: </b><%= Bikehistory.where(stationId: station.stationNumber).last.bikes %></p>
+
+<p><b>Liczba stojaków: </b><%= Bikehistory.where(stationId: station.stationNumber).last.bike_racks %></p>

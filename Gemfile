@@ -31,6 +31,19 @@ gem 'nokogiri', '1.6.4 '
 
 gem "twitter-bootstrap-rails"
 
+gem 'devise'
+
+gem 'gmaps4rails'
+
+gem  'geocoder'
+
+gem "chartkick"
+
+gem 'groupdate'
+gem 'active_median'
+
+gem 'jquery-ui-rails'
+
 # Whenever
 gem 'whenever', :require => false
 

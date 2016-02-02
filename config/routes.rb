@@ -1,4 +1,7 @@
 Rower::Application.routes.draw do
+  get "analysis/availability"
+  post "analysis/availability"
+  devise_for :users
   root "pages#new"
   get 'bikehistories/index'
   # The priority is based upon order of creation: first created -> highest priority.

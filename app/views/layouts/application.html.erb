@@ -4,11 +4,24 @@
   <title>Rower</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+	<%= render "layouts/menu" %>
+
+	<% if user_signed_in?  %>
+		<%= render "layouts/sidebar" %>
+	<% end %>
+
+	<p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+	<%= yield %>
+
+	<%= render "layouts/footer" %>
+
 
 </body>
 </html>
