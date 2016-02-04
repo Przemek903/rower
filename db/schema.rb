@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131170107) do
+ActiveRecord::Schema.define(version: 20160204123727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,22 @@ ActiveRecord::Schema.define(version: 20160131170107) do
     t.datetime "updated_at"
   end
 
+  create_table "cluster_agglomeratives", force: true do |t|
+    t.float    "lat"
+    t.float    "lng"
+    t.integer  "numberOfStations"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cluster_k_means", force: true do |t|
+    t.float    "lat"
+    t.float    "lng"
+    t.integer  "numberOfStations"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "favorite_stations", force: true do |t|
     t.integer  "station_id"
     t.integer  "user_id"
@@ -65,6 +81,8 @@ ActiveRecord::Schema.define(version: 20160131170107) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "clusterAgglomerative_id"
+    t.integer  "clusterKMean_id"
   end
 
   create_table "tracks", force: true do |t|

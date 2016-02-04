@@ -1,6 +1,8 @@
 Rower::Application.routes.draw do
   get "analysis/availability"
   post "analysis/availability"
+  get "analysis/agglomerative"
+  get "analysis/kmeans"
   devise_for :users
   root "pages#new"
   get 'bikehistories/index'
