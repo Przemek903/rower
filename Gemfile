@@ -44,7 +44,7 @@ gem 'active_median'
 
 gem 'jquery-ui-rails'
 
-gem 'kmeans', '~> 0.1.1'
+gem 'kmeans-clusterer', '~> 0.11.4'
 
 # Whenever
 gem 'whenever', :require => false

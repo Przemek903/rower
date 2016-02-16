@@ -48,7 +48,6 @@
 	        infowindow: "Tu jesteś :)"
 	  });
 	  var markers = handler.addMarkers( <%= raw @hash.to_json %> );
-
 	  handler.map.centerOn(marker);
 	  handler.getMap().setZoom(15);
 	};
