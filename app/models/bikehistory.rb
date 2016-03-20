@@ -16,7 +16,38 @@ class Bikehistory < ActiveRecord::Base
 		end
 	end
 
+	def self.count_hire_number(stationName)
+		bikehistories = self.where(name: stationName)
+		bikeLastHour = self.where('created_at > ? AND name = ?', 1.hour.ago, stationName)
+		bikeLastDay = self.where('created_at > ? AND name = ?', 1.day.ago, stationName)
+		bikeLastWeek = self.where('created_at > ? AND name = ?', 1.week.ago, stationName)
+		bikeLastMonth = self.where('created_at > ? AND name = ?', 1.month.ago, stationName)
+
+
+		[self.count_hire(bikehistories),
+		 self.count_hire(bikeLastHour),
+		 self.count_hire(bikeLastDay),
+		 self.count_hire(bikeLastWeek),
+		 self.count_hire(bikeLastMonth),
+		 stationName]
+	end
+
 private
+
+	def self.count_hire(bikehistories)
+		count = 0
+		if !(bikehistories.empty?)
+			actualBikeNumber = bikehistories.first.bike_numbers
+			bikehistories.each do |bike|
+				if actualBikeNumber != bike.bike_numbers
+					count = count + 1
+				end
+				actualBikeNumber = bike.bike_numbers
+			end
+		end
+		count
+	end
+
 	def self.count_hour_avaliability(bikeHist)
 		result = {}
 		(0..23).each do |hour|

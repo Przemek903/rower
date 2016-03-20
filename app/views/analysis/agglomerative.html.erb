@@ -40,6 +40,14 @@
 	  handler.map.centerOn(marker);
 	  handler.bounds.extendWith(polygons);
 	  handler.getMap().setZoom(15);
-	};
+
+	  google.maps.event.addListener(polygons.serviceObject, 'click', function(event)
+    	{
+	        console.log("the click event fired");
+	        infowindow = Gmaps.map.polygons[0].infowindow;
+	        infowindow.setPosition(event.latLng);
+	        infowindow.open(Gmaps.map.map);
+	    });
+		};
 
 </script>

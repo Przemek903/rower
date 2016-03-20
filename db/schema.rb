@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204123727) do
+ActiveRecord::Schema.define(version: 20160320185935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 20160204123727) do
     t.datetime "updated_at"
   end
 
+  create_table "hire_weeks", force: true do |t|
+    t.string   "name"
+    t.integer  "count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "stations", force: true do |t|
     t.integer  "stationNumber"
     t.float    "lng"
@@ -83,6 +90,7 @@ ActiveRecord::Schema.define(version: 20160204123727) do
     t.datetime "updated_at"
     t.integer  "clusterAgglomerative_id"
     t.integer  "clusterKMean_id"
+    t.integer  "hireCount"
   end
 
   create_table "tracks", force: true do |t|

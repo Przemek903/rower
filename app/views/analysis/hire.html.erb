@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-8">
+		<h3>Analiza liczby wypożyczeń</h3>
+		<%= form_tag :action => :hire , :remote=>true do %>
+			<div class="field">
+				<%= label_tag(:stationName, "Nazwa stacji")  %>
+				<%= text_field_tag(:stationName, "", data: {autocomplete_source: Station.order(:name).map(&:name)}) %>
+			</div>
+			<%= submit_tag("Analizuj") %>
+		<% end %>
+
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="clo-md-8">
+				<h5>Nazwa stacji: <%= @hireNumber[5] %></h5>
+				<p>Na tej stacji wypożyczono <%= @hireNumber[0] %> rowerów</p>
+				<p>Liczba wypożyczeń w ciągu ostatniej godziny: <%= @hireNumber[1] %></p>
+				<p>Liczba wypożyczeń w ciągu ostatniego dnia: <%= @hireNumber[2] %></p>
+				<p>Liczba wypożyczeń w ciągu ostatniego tygodnia: <%= @hireNumber[3] %></p>
+				<p>Liczba wypożyczeń w ciągu ostatniego miesiąca: <%= @hireNumber[4] %></p>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="clo-md-8">
+				<h5>Stacje z największą liczbą wypożyczeń:</h5>
+				<% count = 1 %>
+				<% @topHire.each do |top| %>
+					<p><%= count %>. <%= top.name %> - <%= top.hireCount %> wypożyczeń</p>
+					<% count = count + 1 %>
+				<% end %>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="clo-md-8">
+				<h5>Stacje z najmniejszą liczbą wypożyczeń:</h5>
+				<% lesscount = 1 %>
+				<% @lessHire.each do |less| %>
+					<p><%= lesscount %>. <%= less.name %> - <%= less.hireCount %> wypożyczeń</p>
+					<% lesscount = lesscount + 1 %>
+				<% end %>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+	<div class="col-md-1"></div>
+</div>

@@ -12,6 +12,17 @@ class AnalysisController < ApplicationController
   	@kmeans = Station.count_convex_kmean
   end
 
+  def hire
+  	@hireNumber = Bikehistory.count_hire_number(params[:stationName])
+  	@station = Station.where(name: params[:stationName])
+  	@lessHire = Station.order(:hireCount).limit(3)
+  	@topHire = Station.order(:hireCount).reverse_order.limit(3)
+  end
+
+  def hirefrequency
+    @hireHash = HireWeek.recordToHash
+  end
+
 
 # private
 # 	def count_convex

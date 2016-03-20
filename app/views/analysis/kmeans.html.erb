@@ -13,7 +13,8 @@
 
 
 <script type="text/javascript">
-	handler = Gmaps.build('Google');
+	var handler = Gmaps.build('Google');
+	console.log(handler);
 	handler.buildMap({ internal: {id: 'map'}}, function(){
 	  if(navigator.geolocation)
 	    navigator.geolocation.getCurrentPosition(displayOnMap);
@@ -37,9 +38,33 @@
 	    { strokeColor: '#FF0000'}
 	  );
 
+
+
+	  // for (var i=0;i < polygons.length; i++){
+	  //   var polygon = polygons[i];
+	  //   google.maps.event.addListener(polygon.getServiceObject(), "click", function(evt) {
+	  //   	polygon.infowindow = new google.maps.InfoWindow
+		 //    ({
+		 //        content: 'you clicked me!'
+		 //    });
+		 //    console.log("the click event fired");
+		 //    infowindow = polygon.infowindow;
+		 //    infowindow.setPosition(event.latLng);
+		 //    infowindow.open(handler.map);
+	  //   });
+	  // }
+
 	  handler.map.centerOn(marker);
 	  handler.bounds.extendWith(polygons);
 	  handler.getMap().setZoom(15);
+
 	};
 
+	function polygonInfoWindow () {
+		infoWindow = new google.maps.InfoWindow;
+		infoWindow.setContent("hej");
+		var myLocation = new google.maps.LatLng(52.2521224,20.9867952);
+		infoWindow.setPosition(myLocation);
+		// infoWindow.open(a);
+	}
 </script>
