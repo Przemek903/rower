@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320185935) do
+ActiveRecord::Schema.define(version: 20160403130502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,14 @@ ActiveRecord::Schema.define(version: 20160320185935) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "numberOfStations"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cluster_traffics", force: true do |t|
+    t.integer  "fromCluster"
+    t.integer  "toCluster"
+    t.integer  "count"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
