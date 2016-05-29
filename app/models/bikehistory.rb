@@ -1,8 +1,6 @@
 class Bikehistory < ActiveRecord::Base
 
 
-
-
 	def self.count_avaliability(stationName, period)
 		bikeHist = self.where(name: stationName)
 		result = {}

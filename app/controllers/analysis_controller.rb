@@ -23,41 +23,32 @@ class AnalysisController < ApplicationController
     @hireHash = HireWeek.recordToHash
   end
 
+  def weather
+    hireNumbers = Weather.all.group(:avg_temp).order('avg_temp asc').sum(:count)
+    dayNumbers = Weather.all.group(:avg_temp).order('avg_temp asc').count(:count)
+    @avg_count = {}
+    hireNumbers.each do |k,v|
+      intOfK = k.to_i
+      @avg_count[intOfK] = v/dayNumbers[k]
+    end
 
-# private
-# 	def count_convex
-# 		convex_points = []
-# 		(1..50).each do |num|
-# 			stations = Station.where(clusterAgglomerative_id: num )
-# 			points = []
+    @weatherAndCount = Weather.all.group(:conditions).sum(:count)
 
-# 			stations.each do |st|
-# 				points.push([st.lat , st.lng])
-# 			end
-# 			a =  convex_hull(points)
-# 			convex_points.push(a)
-# 		end
+    @countWeather = {}
+    weathers = ['deszcz', 'mgła', 'burza', 'śnieg', 'grad']
+    weathers.each do |weat|
+      days = Weather.where('conditions LIKE ?', '%'+weat+'%').count
+      suma = Weather.where('conditions LIKE ?', '%'+weat+'%').sum(:count)
+      @countWeather[weat] = suma/days
+    end
+    @countWeather['brak'] = Weather.where(conditions: nil).sum(:count)/Weather.where(conditions: nil).count
+  end
 
-# 		p convex_points
-# 	end
+  def hiretime
+    #toDo
+  end
 
-# 	def convex_hull(points)
-# 	  points.sort!.uniq!
-# 	  return points if points.length <= 3
-# 	  def cross(o, a, b)
-# 	    (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
-# 	  end
-# 	  lower = Array.new
-# 	  points.each{|p|
-# 	    while lower.length > 1 and cross(lower[-2], lower[-1], p) <= 0 do lower.pop end
-# 	    lower.push(p)
-# 	  }
-# 	  upper = Array.new
-# 	  points.reverse_each{|p|
-# 	    while upper.length > 1 and cross(upper[-2], upper[-1], p) <= 0 do upper.pop end
-# 	    upper.push(p)
-# 	  }
-# 	  return lower[0...-1] + upper[0...-1]
-# 	end
-
+  def traffic
+    @mostPopularTraffic = ClusterTraffic.where.not(count: nil).group(:id).order(:count).last(10).reverse
+  end
 end

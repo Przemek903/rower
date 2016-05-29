@@ -1,16 +1,21 @@
 desc "Tescik"
-task :tescik_data => :environment do
+task :hire_time => :environment do
   start = Time.now
   ClusterTraffic.update_all(count: nil)
-  # allki = Bikehistory.all.count
-  # p 'Liczba wierszy w tablicy ' + allki.to_s
+  allki = Bikehistory.all.count
+  p 'Liczba wierszy w tablicy ' + allki.to_s
 
-  # uniqBk = Bikehistory.all(
-  #   :select => 'DISTINCT ON (bikehistories.bike_numbers) *',
-  #   :order => 'bikehistories.bike_numbers'
-  #   )
+  # uniqBk = Bikehistory.where("created_at >= ? AND created_at <= ?", Time.now - 4.days, Time.now - 3.days ).all(
 
-  # p 'Liczba unikalnych wierszy w tablicy ' + uniqBk.length.to_s
+  uniqBk = Bikehistory.all(
+    :select => 'DISTINCT ON (bikehistories.bike_numbers) *',
+    :order => 'bikehistories.bike_numbers'
+    )
+
+  # uniqBk = Bikehistory.last(100000)
+
+  uniqSort = uniqBk.sort_by {|el| el[:created_at]}
+  p 'Liczba unikalnych wierszy w tablicy ' + uniqBk.length.to_s
   traffic = []
   clusterRange = (1..50).to_a
   clusterStationNubmers = {}
@@ -23,29 +28,14 @@ task :tescik_data => :environment do
     clusterStationNubmers[cl] = stationNumbers
   end
 
-
-      uniqBk = Bikehistory.all(
-        :select => 'DISTINCT ON (bikehistories.bike_numbers) *',
-        :order => 'bikehistories.bike_numbers'
-        )
-
-      # p 'Liczba unikalnych wierszy w tablicy ' + uniqBk.length.to_s
-      uniqSort = uniqBk.sort_by {|el| el[:created_at]}
-
-
-
-
   bikeNumbers = []
   Bike.all.each do |b|
     bikeNumbers << b.number
   end
 
-  # bikeNumbers = (60261..60272).to_a
+  # bikeNumbers = (60261..60262).to_a
   count = 0
   bikeNumbers.each do |bike|
-
-      # uniqrecforBK = uniqBk.where('bike_numbers LIKE ?', '%' + bike.to_s + '%')
-
       bikeCurrentCluster = 1
       bikeMembership = false
       a = []
@@ -71,38 +61,59 @@ task :tescik_data => :environment do
           # p "                           "
           # p b
           traffic << b
+
         end
       end
   end
-
-  # p count
-
-
+  # p traffic[0]
+  # p "----------------------------------------"
+  # p traffic[1]
+  p count
+  time = 0
+  trafficCount = 0
   traffic.each do |traf|
     temp = nil
     act = nil
     traf.each_with_index do |val,index|
       if index == 0
-        act = Station.where(stationNumber: val.stationId).first.clusterKMean_id
+        temp = val
         next
       end
-      temp = Station.where(stationNumber: val.stationId).first.clusterKMean_id
-      clusterRecord = ClusterTraffic.find_or_create_by(fromCluster: act, toCluster: temp)
-      if clusterRecord.count == nil
-        clusterRecord.update_columns(count: 1 )
-      else
-        clusterRecord.update_columns(count: (clusterRecord.count + 1) )
-      end
-      # p "Z: #{act} ---- Do: #{temp}"
-      act = temp
+      act = val
+      time = time + (act.created_at - temp.created_at)
+      temp = act
+      trafficCount = trafficCount + 1
     end
   end
 
+  p "Co #{Time.at(time/trafficCount).utc.strftime("%H:%M:%S")}"
+
+  # traffic.each do |traf|
+  #   temp = nil
+  #   act = nil
+  #   traf.each_with_index do |val,index|
+  #     if index == 0
+  #       act = Station.where(stationNumber: val.stationId).first.clusterKMean_id
+  #       next
+  #     end
+  #     temp = Station.where(stationNumber: val.stationId).first.clusterKMean_id
+  #     clusterRecord = ClusterTraffic.find_or_create_by(fromCluster: act, toCluster: temp)
+  #     if clusterRecord.count == nil
+  #       clusterRecord.update_columns(count: 1 )
+  #     else
+  #       clusterRecord.update_columns(count: (clusterRecord.count + 1) )
+  #     end
+  #     p "Z: #{act} ---- Do: #{temp}"
+  #     act = temp
+  #   end
+  # end
+
   finish = Time.now
   diff = finish - start
+  p '-----------------------------------------------------------'
   p diff
-  p "Liczba traffic"
-  p ClusterTraffic.where.not(count:nil).count
+  # p "Liczba traffic"
+  # p ClusterTraffic.where.not(count:nil).count
 
   # fileWrite = File.open('hej.txt', 'w')
 
@@ -216,6 +227,5 @@ task :tescik_data => :environment do
   #   end
   # end
   # p 'Liczba wykrytch zmian rowerow w ostatnich 3 godzinach ' + count1h.to_s
-
 
 end

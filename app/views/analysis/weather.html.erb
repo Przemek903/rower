@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-8">
+    <h6>Dane dotyczące pogody pobrano ze strony
+    <%= link_to 'polish.wunderground.com', 'https://polish.wunderground.com/' %>
+    </h6>
+    <h3>Średnia liczba wypożyczeń rowerów w zależności od temperatury</h3>
+    <div id="barChart">
+      <%= column_chart( @avg_count, discrete: false, xtitle: "Temperatura [C]", ytitle: "Średnia liczba wypożyczeń w ciągu dnia" )%>
+    </div>
+    <h3> Średnia liczba wypożyczeń rowerów w zależności od warunków pogodowych</h3>
+    <div id="barChart">
+      <%= column_chart( @countWeather, discrete: false, xtitle: "Warunki pogodowe", ytitle: "Średnia liczba wypożyczeń w ciągu dnia" )%>
+    </div>
+    <h3>Liczba wypożyczeń rowerów w zależności od warunków pogodowych</h3>
+    <div id="barChart">
+      <%= bar_chart( @weatherAndCount )%>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>

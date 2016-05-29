@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  max_temp: 1
+  min_temp: 1
+  avg_temp: 1
+  conditions: MyString
+  date: 
+
+two:
+  max_temp: 1
+  min_temp: 1
+  avg_temp: 1
+  conditions: MyString
+  date: 

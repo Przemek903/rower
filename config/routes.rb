@@ -3,8 +3,11 @@ Rower::Application.routes.draw do
   post "analysis/availability"
   get "analysis/agglomerative"
   get "analysis/hirefrequency"
+  get "analysis/weather"
   get "analysis/kmeans"
+  get "analysis/hiretime"
   get "analysis/hire"
+  get "analysis/traffic"
   post "analysis/hire"
   devise_for :users
   root "pages#new"

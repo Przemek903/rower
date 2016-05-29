@@ -34,12 +34,12 @@ task :test_data => :environment do
 
 
 
-  bikeNumbers = []
-  Bike.all.each do |b|
-    bikeNumbers << b.number
-  end
+  # bikeNumbers = []
+  # Bike.all.each do |b|
+  #   bikeNumbers << b.number
+  # end
 
-  # bikeNumbers = (60261..60457).to_a
+  bikeNumbers = (60261..60457).to_a
   count = 0
 
   bikeNumbers.each do |bike|
