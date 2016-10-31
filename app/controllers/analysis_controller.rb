@@ -49,6 +49,49 @@ class AnalysisController < ApplicationController
   end
 
   def traffic
-    @mostPopularTraffic = ClusterTraffic.where.not(count: nil).group(:id).order(:count).last(10).reverse
+    @kmeans = Station.count_convex_kmean
+    @startAndLineProperties = []
+    @end = []
+    @lineColor = []
+    @clusterInfo = []
+    TwoDirectionTraffic.order(:totalCount).last(50).each do |traffic|
+      startCluster = ClusterKMean.find(traffic.stationA_id)
+      endCluster = ClusterKMean.find(traffic.stationB_id)
+      lineWeight = 1
+
+      case traffic.totalCount
+      when 1..100
+        lineWeight = 0.5
+        @lineColor << "#703982"
+      when 101..250
+        lineWeight = 1
+        @lineColor << "#417F94"
+      when 251..500
+        lineWeight = 2
+        @lineColor << "#50A334"
+      when 501..1000
+        lineWeight = 3
+        @lineColor << "#ADFC00"
+      when 1001..2000
+        lineWeight = 4
+        @lineColor << "#F0D83C"
+      when 2001..5000
+        lineWeight = 5
+        @lineColor << "#F0993C"
+      else
+        lineWeight = 6
+        @lineColor << "#F52222"
+      end
+      @startAndLineProperties << [startCluster.lat, startCluster.lng, lineWeight]
+      @end << [endCluster.lat, endCluster.lng]
+      @clusterInfo << [
+                        traffic.fromFirstToSecond, traffic.formSecondToFirst,
+                        startCluster.numberOfStations, endCluster.numberOfStations,
+                        Station.where(clusterKMean_id: traffic.stationA_id).first.name,
+                        Station.where(clusterKMean_id: traffic.stationB_id).first.name,
+                        traffic.stationA_id, traffic.stationB_id
+                      ]
+    end
+    @polylines = []
   end
 end

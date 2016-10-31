@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521160200) do
+ActiveRecord::Schema.define(version: 20160815102748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,16 @@ ActiveRecord::Schema.define(version: 20160521160200) do
     t.integer  "fromStation"
     t.integer  "toStation"
     t.integer  "count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "two_direction_traffics", force: true do |t|
+    t.integer  "fromFirstToSecond"
+    t.integer  "formSecondToFirst"
+    t.integer  "totalCount"
+    t.integer  "stationA_id"
+    t.integer  "stationB_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

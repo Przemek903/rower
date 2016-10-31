@@ -1,25 +1,10 @@
 <div class="container-fluid">
   <div class="row bikeRoutes">
-  	<div class="col-md-9">
+    <div class="col-md-1"></div>
+  	<div class="col-md-10">
   		<div class="row">
-  		<h3>Wyszukaj połączenie</h3>
-		  	<div class="col-md-6">
-				<h4>Początek trasy <%= button_tag "Najbliższa stacja" %></h4>
-				<input type="text" name="BeginingOfRoute" id="stationName">
-		  	</div>
-		  	<div class="col-md-6">
-		  		<h4>Koniec trasy</h4>
-		  		<input type="text" name="EndOfRoute" id="stationName">
-		  	</div>
-		 </div>
-		 <div class="row">
-		  	<div class="col-md-4"></div>
-		  	<div class="col-md-3">
-				<%= button_tag "Szukaj" %>
-		  	</div>
-		  	<div class="col-md-5"></div>
-		 </div>
-		<div id="map" style='width: 100%; height: 350px;'></div>
+  		<h3>Mapa stacji</h3>
+		<div id="map" style='width: 100%; height: 450px;'></div>
   	</div>
   	<div class="col-md-1"></div>
   </div>

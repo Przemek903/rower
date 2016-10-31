@@ -25,6 +25,7 @@ task :create_clusters_kmeans => :environment do
 	end
 
 	p resultClusters
+  p resultCentroids
 
 	fillStationsData(resultClusters, resultCentroids)
 end

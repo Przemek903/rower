@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fromFirstToSecond: 1
+  formSecondToFirst: 1
+  totalCount: 1
+  stationA_id: 1
+  stationB: 1
+
+two:
+  fromFirstToSecond: 1
+  formSecondToFirst: 1
+  totalCount: 1
+  stationA_id: 1
+  stationB: 1
