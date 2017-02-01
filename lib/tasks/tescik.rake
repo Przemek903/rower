@@ -32,7 +32,7 @@ task :tescik_data => :environment do
       # p 'Liczba unikalnych wierszy w tablicy ' + uniqBk.length.to_s
       uniqSort = uniqBk.sort_by {|el| el[:created_at]}
 
-
+  database_time_load = Time.now
 
 
   bikeNumbers = []
@@ -42,8 +42,10 @@ task :tescik_data => :environment do
 
   # bikeNumbers = (60261..60272).to_a
   count = 0
+  tempBikeNumber = 1
   bikeNumbers.each do |bike|
-
+      p tempBikeNumber
+      tempBikeNumber = tempBikeNumber + 1
       # uniqrecforBK = uniqBk.where('bike_numbers LIKE ?', '%' + bike.to_s + '%')
 
       bikeCurrentCluster = 1
@@ -98,9 +100,20 @@ task :tescik_data => :environment do
     end
   end
 
+  database_time = database_time_load - start
   finish = Time.now
-  diff = finish - start
+  diff = finish - database_time_load
+  all_time = finish - start
+  p "Czas ładowania bazy"
+  p database_time
+
+  p "Czas liczenia"
   p diff
+
+  p "Cały czas"
+
+  p all_time
+
   p "Liczba traffic"
   p ClusterTraffic.where.not(count:nil).count
 

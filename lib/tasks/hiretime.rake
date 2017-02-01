@@ -1,11 +1,14 @@
 desc "Tescik"
 task :hire_time => :environment do
   start = Time.now
-  ClusterTraffic.update_all(count: nil)
-  allki = Bikehistory.all.count
-  p 'Liczba wierszy w tablicy ' + allki.to_s
+  # ClusterTraffic.update_all(count: nil)
+  # allki = Bikehistory.all.count
+  # p 'Liczba wierszy w tablicy ' + allki.to_s
 
-  # uniqBk = Bikehistory.where("created_at >= ? AND created_at <= ?", Time.now - 4.days, Time.now - 3.days ).all(
+  # uniqBk = Bikehistory.where("created_at >= ? AND created_at <= ?", Time.new(2016, 7, 1), Time.new(2016, 8, 1) ).all(
+  #   :select => 'DISTINCT ON (bikehistories.bike_numbers) *',
+  #   :order => 'bikehistories.bike_numbers'
+  #   )
 
   uniqBk = Bikehistory.all(
     :select => 'DISTINCT ON (bikehistories.bike_numbers) *',
@@ -33,8 +36,11 @@ task :hire_time => :environment do
     bikeNumbers << b.number
   end
 
-  # bikeNumbers = (60261..60262).to_a
-  count = 0
+
+  count = 1
+  p "BikeNumbers - #{Bike.all.count}"
+  time = 0
+  trafficCount = 0
   bikeNumbers.each do |bike|
       bikeCurrentCluster = 1
       bikeMembership = false
@@ -51,40 +57,50 @@ task :hire_time => :environment do
         end
       end
       if a.length > 1
-        b = a.uniq {|e| e[:stationId] }
-
+        b = a.reverse.uniq {|e| e[:stationId] }.reverse
         if b.length > 1
-          count  = count + (b.length - 1)
-          # p b.length
-          # p "                           "
-          # p "                           "
-          # p "                           "
-          # p b
-          traffic << b
-
+            temp = nil
+            act = nil
+            b.each_with_index do |val,index|
+              if index == 0
+                temp = val
+                next
+              end
+            act = val
+            time = time + (act.created_at - temp.created_at)
+            temp = act
+            trafficCount = trafficCount + 1
+        end
         end
       end
+    p count
+    count = count + 1
   end
-  # p traffic[0]
-  # p "----------------------------------------"
-  # p traffic[1]
-  p count
-  time = 0
-  trafficCount = 0
-  traffic.each do |traf|
-    temp = nil
-    act = nil
-    traf.each_with_index do |val,index|
-      if index == 0
-        temp = val
-        next
-      end
-      act = val
-      time = time + (act.created_at - temp.created_at)
-      temp = act
-      trafficCount = trafficCount + 1
-    end
-  end
+  # p traffic
+  # # p "----------------------------------------"
+  # # p traffic[1]
+  # # p traffic[2]
+  # # p traffic[3]
+  # # p traffic[4]
+  # p traffic.size
+  # time = 0
+  # trafficCount = 0
+  # traffic.each do |traf|
+  #   temp = nil
+  #   act = nil
+  #   traf.each_with_index do |val,index|
+  #     if index == 0
+  #       temp = val
+  #       next
+  #     end
+  #     act = val
+  #     time = time + (act.created_at - temp.created_at)
+  #     temp = act
+  #     trafficCount = trafficCount + 1
+  #   end
+  # end
+  p time
+  p trafficCount
 
   p "Co #{Time.at(time/trafficCount).utc.strftime("%H:%M:%S")}"
 

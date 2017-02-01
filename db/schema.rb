@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815102748) do
+ActiveRecord::Schema.define(version: 20161127123257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,9 @@ ActiveRecord::Schema.define(version: 20160815102748) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "bikehistories", ["bike_numbers"], name: "index_bikehistories_on_bike_numbers", using: :btree
+  add_index "bikehistories", ["created_at"], name: "index_bikehistories_on_created_at", using: :btree
 
   create_table "bikes", force: true do |t|
     t.integer  "number"
@@ -99,6 +102,8 @@ ActiveRecord::Schema.define(version: 20160815102748) do
     t.integer  "clusterAgglomerative_id"
     t.integer  "clusterKMean_id"
     t.integer  "hireCount"
+    t.integer  "rack"
+    t.float    "hireRack"
   end
 
   create_table "tracks", force: true do |t|

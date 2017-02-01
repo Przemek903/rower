@@ -1,6 +1,6 @@
 desc "Create clusters - agglomerative method"
 task :create_clusters_aggl => :environment do
-	stations = Station.first(284)
+	stations = Station.all
 	p stations.count
 	reshapeDistanceArray = createDistanceArray(stations)
 
@@ -194,17 +194,17 @@ end
 
 def addDataToCluster(clusterResultTable)
 	clusterTable = []
-	num = 233
+	num = 238
 	p clusterResultTable[num][1]
 	p clusterResultTable[num][0]
 	clusterResultTable[num][1].each do |k,v|
 		clusterTable.push(v.split(","))
 	end
 	p clusterTable.length
-	fillStationsData(clusterTable)
+	fillStationsDatas(clusterTable)
 end
 
-def fillStationsData(clusterTable)
+def fillStationsDatas(clusterTable)
 	Station.update_all(clusterAgglomerative_id: nil)
 	clusterTable.each_with_index do |el, ind|
 		el.each do |num|
@@ -212,3 +212,5 @@ def fillStationsData(clusterTable)
 		end
 	end
 end
+
+#done?

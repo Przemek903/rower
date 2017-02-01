@@ -18,7 +18,7 @@ task :weather_analysis => :environment do
           end
         end
       end
-      # p weat.weather_date
+      p weat.weather_date
       # p count
       weat.update_attributes(count: count)
     end

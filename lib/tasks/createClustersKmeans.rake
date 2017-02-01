@@ -2,7 +2,7 @@ require 'kmeans-clusterer'
 desc "Create clusters - kmeans method"
 task :create_clusters_kmeans => :environment do
 
-	stations = Station.first(284)
+	stations = Station.all
 
 	data = []
 	labels = []
@@ -39,3 +39,5 @@ def fillStationsData(resultClusters, resultCentroids)
 		end
 	end
 end
+
+#done ?

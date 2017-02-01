@@ -1,12 +1,134 @@
 <div class="row">
   <div class="col-md-1"></div>
   <div class="col-md-8">
-    <h3>Analiza średniego czasu wypożyczenia rowerów</h3>
-    <p>Średni czas wypożyczenia w ciągu ostatniego dnia: 01:48:21 </p>
-    <p>Średni czas wypożyczenia w ciągu ostatniego tygodnia: 06:51:26</p>
-    <p>Średni czas wypożyczenia w ciągu ostatniego miesiąca: 06:33:34 </p>
-    <p>Średni czas wypożyczenia w ciągu ostatnich 3 misięcy: 08:48:52</p>
-    <p>Średni czas wypożyczenia: 09:42:19</p>
+    <h3>Analiza pojedyńczego dnia</h3>
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Data analizy</th>
+        <th>Całkowity czas wypożyczeń [s]</th>
+        <th>Liczba wypożyczeń</th>
+        <th>Średni czas zarejestrowanego przejazdu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= DateTime.new(2016,7,25).strftime("%Y-%m-%d") %></td>
+        <td>66149175</td>
+        <td>3928</td>
+        <td>04:40:40</td>
+      </tr>
+      <tr>
+        <td><%= DateTime.new(2016,7,10).strftime("%Y-%m-%d") %></td>
+        <td>65849560</td>
+        <td>3818</td>
+        <td>04:47:27</td>
+      </tr>
+      <tr>
+        <td><%= DateTime.new(2016,6,25).strftime("%Y-%m-%d") %></td>
+        <td>60636721</td>
+        <td>3292</td>
+        <td>05:06:59</td>
+      </tr>
+      <tr>
+        <td><%= DateTime.new(2016,5,23).strftime("%Y-%m-%d") %></td>
+        <td>53497235</td>
+        <td>3599</td>
+        <td>04:07:44</td>
+      </tr>
+      <tr>
+        <td><%= DateTime.new(2016,3,20).strftime("%Y-%m-%d") %></td>
+        <td>21031303</td>
+        <td>684</td>
+        <td>08:32:27</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-8">
+    <h3>Analiza pojedyńczego tygodnia</h3>
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Przedział czasowy analizy</th>
+        <th>Całkowity czas wypożyczeń [s]</th>
+        <th>Liczba wypożyczeń</th>
+        <th>Średni czas zarejestrowanego przejazdu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= DateTime.new(2016,7,10).strftime("%Y-%m-%d") %> -> <%= DateTime.new(2016,7,17).strftime("%Y-%m-%d") %></td>
+        <td>906452883</td>
+        <td>24220</td>
+        <td>10:23:45</td>
+      </tr>
+      <tr>
+        <td><%= DateTime.new(2016,6,10).strftime("%Y-%m-%d") %> -> <%= DateTime.new(2016,7,17).strftime("%Y-%m-%d") %></td>
+        <td>874745100</td>
+        <td>28497</td>
+        <td>08:31:36</td>
+      </tr>
+      <tr>
+        <td><%= DateTime.new(2016,4,10).strftime("%Y-%m-%d") %> -> <%= DateTime.new(2016,4,17).strftime("%Y-%m-%d") %></td>
+        <td>448809517</td>
+        <td>11034</td>
+        <td>11:17:55</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-8">
+    <h3>Analiza pojedyńczego miesiąca</h3>
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Miesiąc analizy</th>
+        <th>Całkowity czas wypożyczeń [s]</th>
+        <th>Liczba wypożyczeń</th>
+        <th>Średni czas zarejestrowanego przejazdu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lipiec</td>
+        <td>4549148486</td>
+        <td>99471</td>
+        <td>12:42:13</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-8">
+    <h3>Analiza całkowita</h3>
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Całkowity czas wypożyczeń [s]</th>
+        <th>Liczba wypożyczeń</th>
+        <th>Średni czas zarejestrowanego przejazdu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>39619464167</td>
+        <td>293281</td>
+        <td>13:31:30</td>
+      </tr>
+    </tbody>
+  </table>
   </div>
   <div class="col-md-1"></div>
 </div>

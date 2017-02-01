@@ -6,6 +6,8 @@
 			<div class="field">
 				<%= label_tag(:stationName, "Nazwa stacji")  %>
 				<%= text_field_tag(:stationName, "", data: {autocomplete_source: Station.order(:name).map(&:name)}) %>
+        <input name="authenticity_token" type="hidden"
+           value="f755bb0ed134b76c432144748a6d4b7a7ddf2b71" />
 			</div>
 			<%= submit_tag("Analizuj") %>
 		<% end %>
@@ -26,7 +28,7 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="clo-md-8">
-				<h5>Stacje z największą liczbą wypożyczeń:</h5>
+				<h4>Stacje z największą liczbą wypożyczeń:</h4>
 				<% count = 1 %>
 				<% @topHire.each do |top| %>
 					<p><%= count %>. <%= top.name %> - <%= top.hireCount %> wypożyczeń</p>
@@ -38,7 +40,7 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="clo-md-8">
-				<h5>Stacje z najmniejszą liczbą wypożyczeń:</h5>
+				<h4>Stacje z najmniejszą liczbą wypożyczeń:</h4>
 				<% lesscount = 1 %>
 				<% @lessHire.each do |less| %>
 					<p><%= lesscount %>. <%= less.name %> - <%= less.hireCount %> wypożyczeń</p>
@@ -47,6 +49,30 @@
 			</div>
 			<div class="col-md-1"></div>
 		</div>
+        <div class="row">
+      <div class="col-md-1"></div>
+      <div class="clo-md-8">
+        <h4>Stacje z największym stosunkiem wypożyczeń do liczby stojaków:</h4>
+        <% count = 1 %>
+        <% @topHireToRake.each do |top| %>
+          <p><%= count %>. <%= top.name %> - Ratio - <%= top.hireRack %> (<%= top.rack %> stojaków)</p>
+          <% count = count + 1 %>
+        <% end %>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="clo-md-8">
+        <h4>Stacje z najmniejszym stosunkiem wypożyczeń do liczby stojaków:</h4>
+        <% lesscount = 1 %>
+        <% @lessHireToRake.each do |less| %>
+          <p><%= lesscount %>. <%= less.name %> - Ratio - <%= less.hireRack %>  (<%= less.rack %> stojaków) </p>
+          <% lesscount = lesscount + 1 %>
+        <% end %>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
 	</div>
 	<div class="col-md-1"></div>
 </div>

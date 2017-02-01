@@ -1,7 +1,6 @@
 desc "Add bikes data to Bike model"
 task :add_bikes => :environment do
-	bikeHist = Bikehistory.all
-
+	bikeHist = Bikehistory.first(500000)
 	bikeHist.each do |hist|
 		if hist.bike_numbers != nil
 			numbers = hist.bike_numbers.split(",").map(&:to_i)
@@ -17,3 +16,5 @@ task :add_bikes => :environment do
 		end
 	end
 end
+
+#done

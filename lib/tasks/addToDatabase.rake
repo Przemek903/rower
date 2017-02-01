@@ -2,7 +2,7 @@ desc "AddToDatabase"
 task :add_data => :environment do
 	require 'date'
 
-	lines = File.new('outputdatabase.csv').readlines
+	lines = File.new('main_smaller.csv').readlines
   	lines.each do |line|
     	values = line.strip.split(';')
     	Bikehistory.create(
@@ -19,3 +19,5 @@ task :add_data => :environment do
 		)
   	end
 end
+
+#done

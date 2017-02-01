@@ -1,7 +1,7 @@
 desc "Find middle of cluster"
 task :center_data => :environment do
   ClusterKMean.delete_all
-  stations = Station.first(284)
+  stations = Station.all
 
   data = []
   labels = []
@@ -34,3 +34,5 @@ task :center_data => :environment do
   end
 
 end
+
+#done?

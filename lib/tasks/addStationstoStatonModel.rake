@@ -1,6 +1,6 @@
 desc "Add stations data to Station model"
 task :add_stations => :environment do
-	bikeHist = Bikehistory.all
+	bikeHist = Bikehistory.last(300000)
 
 	bikeHist.each do |hist|
 		stationName = hist.name
@@ -14,3 +14,5 @@ task :add_stations => :environment do
 			end
 	end
 end
+
+#done

@@ -5,6 +5,69 @@
       <h3>Mapa przemieszczń</h3>
       <div class="row">
         <div id="map" style='width: 100%; height: 550px;'></div>
+        <div>
+          <h3>10 najczęstszych połączeń</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Kalster A</th>
+                <th>Kalster B</th>
+                <th>A -> B</th>
+                <th>B -> A</th>
+                <th>Całkowita liczba przemieszczeń</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @mostUsedTrafficsTwoWays.each do |mostTraffic| %>
+                <tr>
+                  <td><%= mostTraffic.stationA_id %> - ( okolice <%= Station.where(clusterKMean_id: mostTraffic.stationA_id).first.name %> )</td>
+                  <td><%= mostTraffic.stationB_id %> - ( okolice <%= Station.where(clusterKMean_id: mostTraffic.stationB_id).first.name %> )</td>
+                  <td><%= mostTraffic.fromFirstToSecond %></td>
+                  <td><%= mostTraffic.formSecondToFirst %></td>
+                  <td><%= mostTraffic.totalCount %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>10 klastór o największej liczbie zwrotów</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Kalster</th>
+                <th>Liczba przybyłych rowerów</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @topImport.first(10).each do |clusterNumber, totalImport| %>
+                <tr>
+                  <td><%= clusterNumber %> - ( okolice <%= Station.where(clusterKMean_id: clusterNumber).first.name %> )</td>
+                  <td><%= totalImport %> </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>10 klastór o największej liczbie wypożyczeń</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Kalster</th>
+                <th>Liczba rowerów, które wyjechały z klastra</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @topExport.first(10).each do |clusterNumber, totalExport| %>
+                <tr>
+                  <td><%= clusterNumber %> - ( okolice <%= Station.where(clusterKMean_id: clusterNumber).first.name %> )</td>
+                  <td><%= totalExport %> </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
     </div>
   </div>
 </div>
@@ -63,9 +126,9 @@ function calcRoute(source,destination, lineWeight, lineColor, clusterCount){
  '<h3 id="firstHeading" class="firstHeading">Liczba przemieszczeń</h1>'+
  '<div id="bodyContent">'+
  '<p>Kalster A - okolice '+
- clusterCount[4] + '(Liczba stacji: ' + clusterCount[2] + ')' +'</p>'+
+ clusterCount[4] + '</p>'+
  '<p>Klaster B - okolice '+
- clusterCount[5] + '(Liczba stacji: ' + clusterCount[3] + ')' +'</p>'+
+ clusterCount[5] + '</p>'+
  '<p>A -> B - '+
  clusterCount[0] +' przemieszczeń </p>'+
  '<p>B -> A - '+
@@ -76,7 +139,7 @@ function calcRoute(source,destination, lineWeight, lineColor, clusterCount){
    var polygons = new google.maps.Polygon({
           paths: <%= raw @kmeans.to_json %>,
           strokeColor: '#858585',
-          strokeOpacity: 0.1,
+          strokeOpacity: 0.01,
           strokeWeight: 2,
           fillOpacity: 0.01,
           fillColor: "#000000"
